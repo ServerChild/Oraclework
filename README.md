@@ -11,3 +11,4 @@
    -  연산자 : 논리 연산자, BETWEEN AND, LIKE, IS NULL / IS NOT NULL, IN / NOT IN
    -  연산자 우선순위
    -  ORDER BY절
+   -  함수 : 단일행 함수(문자처리 함수)
