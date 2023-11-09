@@ -340,10 +340,3 @@ ORDER BY BONUS DESC, SALARY ASC; -- BONUS 기준으로 내림차순 하다가 BO
 
 -- 전 사원의 사원명, 연봉 조회(연봉 내림차순 정렬 조회)
 SELECT EMP_NAME, SALARY FROM EMPLOYEE ORDER BY SALARY DESC;
-
-
-
-
-
-
-
