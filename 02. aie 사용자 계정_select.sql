@@ -27,7 +27,6 @@ SELECT * FROM JOB;
 SELECT EMP_ID, EMP_NAME, SALARY, HIRE_DATE FROM EMPLOYEE;
 
 
---====================================================--
 -- 문제 --
 -- JOB 테이블에서 직급명만 조회
 SELECT JOB_NAME FROM JOB;
@@ -137,5 +136,96 @@ SELECT DISTINCT JOB_CODE, DEPT_CODE FROM EMPLOYEE;
         - 표현법 : SELECT 컬럼명, 컬럼명, ... FROM 테이블명 WHERE 조건;
         - 비교연산자(>>), 대소비교(>, <, >=, <=), 같음(=), 같지않음(!=, ^=, <>)
 */
--- EMPLOYEE에서 부서코드가 'D9'인 사원들 모든 컬럼 조회
+-- EMPLOYEE에서 부서코드가 'D9'인 사원의 모든 컬럼 조회
 SELECT * FROM EMPLOYEE WHERE DEPT_CODE = 'D9';
+
+-- EMPLOYEE에서 부서코드가 'D1'인 아닌 사원의 사번, 사원명, 부서코드를 조회
+SELECT EMP_ID, EMP_NAME, DEPT_CODE FROM EMPLOYEE WHERE DEPT_CODE <> 'D1';
+
+-- EMPLOYEE에서 급여가 400만원 이상인 사원의 사원명, 부서코드, 급여를 조회
+SELECT EMP_NAME, DEPT_CODE, SALARY FROM EMPLOYEE WHERE SALARY >= 4000000;
+
+-- EMPLOYEE에서 재직 중인 사원의 사번, 사원명, 입사일을 조회
+SELECT EMP_ID, EMP_NAME, HIRE_DATE FROM EMPLOYEE WHERE ENT_YN = 'N';
+
+
+-- 문제 --
+-- 급여가 300만원 이상인 사원의 사원명, 급여, 입사일, 연봉 조회
+SELECT EMP_NAME, SALARY, HIRE_DATE, SALARY * 12 FROM EMPLOYEE WHERE SALARY >= 3000000;
+
+-- 연봉이 5000만원 이상인 사원의 사원명, 급여, 연봉, 부서코드 조회
+SELECT EMP_NAME, SALARY, SALARY * 12, DEPT_CODE FROM EMPLOYEE WHERE SALARY * 12 >= 50000000;
+
+-- 직급코드가 'J3'이 아닌 사원의 사번, 사원명, 직급코드, 퇴사여부 조회
+SELECT EMP_ID, EMP_NAME, JOB_CODE, ENT_YN FROM EMPLOYEE WHERE JOB_CODE <> 'J3';
+
+
+--====================================================--
+/*
+    <논리 연산자> : 여러개의 조건을 묶어서 제시하고자 할 때
+        - AND : ~이면서, 그리고
+        - OR : ~이거나, 또는
+        - NOT : 부정 논리 연산자, 컬럼명 앞이나 BETWEEN 앞에 사용
+*/
+-- 부서코드가 'D9'이면서 급여가 500만원 이상인 사원의 사원명, 부서코드, 급여 조회
+SELECT EMP_NAME, DEPT_CODE, SALARY FROM EMPLOYEE WHERE DEPT_CODE = 'D9' AND SALARY >= 5000000;
+
+-- 부서코드가 'D6'이거나 급여가 300만원 이상인 사원의 사원명, 부서코드, 급여 조회
+SELECT EMP_NAME,  DEPT_CODE, SALARY FROM EMPLOYEE WHERE DEPT_CODE = 'D6' OR SALARY >= 3000000;
+
+-- 급여가 350만원이상 600만원 이하인 사원의 사번, 사원명, 급여 조회
+SELECT EMP_ID, EMP_NAME, SALARY FROM EMPLOYEE WHERE 3500000 <= SALARY AND SALARY <= 6000000;
+
+
+--====================================================--
+/*
+    <BETWEEN AND> : ~이하 ~이상인 범위의 조건을 제시할 때
+        - 표현법 : 비교대상컬럼명 BETWEEN 이하값 AND 이상값
+            -> 해당 컬럼값이 이하값 이상이고 이상값 이하인 경우
+*/
+-- 급여가 350만원이상 600만원 이하인 사원의 사번, 사원명, 급여 조회
+SELECT EMP_ID, EMP_NAME, SALARY FROM EMPLOYEE WHERE SALARY BETWEEN 3500000 AND 6000000;
+
+-- 급여가 350만원이상 600만원 이하를 제외한 사원의 사번, 사원명, 급여 조회
+SELECT EMP_ID, EMP_NAME, SALARY FROM EMPLOYEE WHERE NOT SALARY  BETWEEN 3500000 AND 6000000;
+
+-- 입사일이 90/01/01 ~ 01/12/31 사이인 사원의 사번, 사원명, 입사일 조회
+SELECT EMP_ID, EMP_NAME, HIRE_DATE FROM EMPLOYEE WHERE HIRE_DATE BETWEEN '90/01/01' AND '01/12/31';
+
+
+--====================================================--
+/*
+    <LIKE> : 비교하고자 하는 컬럼값이 특정 패턴에 만족하는 경우를 조회할 때
+        - 표현법 : 비교대상컬럼명 LIKE '특정 패턴'
+            -> 특정 패턴은 '%' , '_' , 와일드카드를 통해 제시
+        
+        - % : 0글자 이상
+            -> 비교대상컬럼명 LIKE '문자%' : 비교대상 컬럼값이 '문자'로 시작되는 것을 조회
+            -> 비교대상컬럼명 LIKE '%문자' :  비교대상 컬럼값이 '문자'로 끝나는 것을 조회
+            -> 비교대상컬럼명 LIKE '%문자%' :  비교대상 컬럼값에 '문자'가 포함된 것을 조회
+        
+        - _ : 1글자, 부호 갯수에 따라 해당 글자 수를 맞춰야 함
+            -> 비교대상컬럼명 LIKE '_문자' : 비교대상 컬럼값의 '문자' 앞에 무조건 한글자가 있는 경우를 조회(3글자만 가능)
+            -> 비교대상컬럼명 LIKE '문자_' : 비교대상 컬럼값의 '문자' 뒤에 무조건 한글자가 있는 경우를 조회(3글자만 가능)
+            -> 비교대상컬럼명 LIKE '_문자_' : 비교대상 컬럼값의 '문자' 앞/뒤에 무조건 한글자가 있는 경우를 조회(4글자만 가능)
+*/
+-- 사원들 중에 성이 '전'씨인 사원의 사번, 사원명 조회
+SELECT EMP_ID, EMP_NAME FROM EMPLOYEE WHERE EMP_NAME LIKE '전%';
+
+-- 사원들 중에 이름에 '하'가 포함된 사원의 사번, 사원명 조회
+SELECT EMP_ID, EMP_NAME FROM EMPLOYEE WHERE EMP_NAME LIKE '%하%';
+
+-- 사원들 중에 이름 가운데 글자가 '하'인 사원(3글자)의 사번, 사원명 조회
+SELECT EMP_ID, EMP_NAME FROM EMPLOYEE WHERE EMP_NAME LIKE '_하_';
+
+-- 전화번호 중 3번째 글자가 '1'인 사원의 사번, 사원명, 전화번호 조회
+SELECT EMP_ID, EMP_NAME, PHONE FROM EMPLOYEE WHERE PHONE LIKE '__1%';
+
+-- 이메일 중 '_' 앞에 글자가 3글자인 사원의 사번, 사원명, 이메일 조회(언더바(_) 4개)
+-- 언더바(_) 4개 : 와일드 카드로 인식됨
+SELECT EMP_ID, EMP_NAME, EMAIL FROM EMPLOYEE WHERE EMAIL LIKE '____%'; 
+
+-- 데이터와 와일드카드를 구분지어야 함
+-- 데이터값으로 취급하고자 하는 값 앞에 나만의 와일드카드(아무거나 문자, 숫자, 특수문자)를 제시하고 나만의 와일드카드 escape로 등록해야 함
+SELECT EMP_ID, EMP_NAME, EMAIL FROM EMPLOYEE WHERE EMAIL LIKE '___$_%' ESCAPE '$'; 
+
