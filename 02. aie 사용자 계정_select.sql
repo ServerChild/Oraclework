@@ -14,6 +14,7 @@ SELECT * FROM EMPLOYEE;
 
 SELECT * FROM DEPARTMENT;
 
+
 --====================================================--
 -- 테이블 특정 컬럼 조회
 -- EMPLOYEE 테이블에서 사번, 이름, 번호 조회
@@ -24,6 +25,7 @@ SELECT * FROM JOB;
 
 -- EMPLOYEE 테이블에서 사번, 이름, 급여, 입사일만 조회
 SELECT EMP_ID, EMP_NAME, SALARY, HIRE_DATE FROM EMPLOYEE;
+
 
 --====================================================--
 -- 문제 --
@@ -38,6 +40,7 @@ SELECT DEPT_ID, DEPT_TITLE FROM DEPARTMENT;
 
 -- EMPLOYEE 테이블에 사원명, 이메일, 전화번호, 입사일, 급여 조회
 SELECT EMP_NAME, EMAIL, PHONE, HIRE_DATE, SALARY FROM EMPLOYEE;
+
 
 --====================================================--
 /*
@@ -60,6 +63,7 @@ SELECT EMP_NAME, SALARY, BONUS, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12 FR
 -- 오늘 날짜 : SYSDATE
 SELECT EMP_NAME, HIRE_DATE, SYSDATE - HIRE_DATE FROM EMPLOYEE;
 
+
 --====================================================--
 /*
     <컬럼명 별칭 지정>
@@ -73,6 +77,7 @@ SELECT EMP_NAME 사원명, SALARY AS 급여, BONUS "보너스", SALARY * 12 "연
 
 SELECT EMP_NAME AS 사원명, HIRE_DATE "입사일(일)", SYSDATE - HIRE_DATE AS "근무일수(일)" FROM EMPLOYEE;
 
+
 --====================================================--
 /*
     <리터럴>
@@ -84,6 +89,7 @@ SELECT EMP_NAME AS 사원명, HIRE_DATE "입사일(일)", SYSDATE - HIRE_DATE AS
 -- EMPLOYEE에 사번, 사원명, 급여, 원 AS 단위조회
 -- 숫자 정렬 기본값(오른쪽), 문자열 정렬 기본값(왼쪽)
 SELECT EMP_ID, EMP_NAME, SALARY, '원' AS 단위 FROM EMPLOYEE;
+
 
 --====================================================--
 /*
@@ -103,6 +109,7 @@ SELECT EMP_NAME || '의 월급은 ' || SALARY || '원 입니다.' FROM EMPLOYEE;
 -- 홍길동의 전화번호는 PHONE이고 이메일은 EMAIL 입니다.
 SELECT EMP_NAME || '의 전화번호는 ' || PHONE || '이고 이메일은 ' || EMAIL || '입니다.' FROM EMPLOYEE;
 
+
 --====================================================--
 /*
     <DISTINCT> : 컬럼의 중복된 값들을 한번씩만 표시하고자 할 때
@@ -121,6 +128,7 @@ SELECT DISTINCT DEPT_CODE FROM EMPLOYEE;
 -- 두개의 컬럼에 대해 조합할 수 있는 경우의 수가 중복을 제외하고 한개씩 나옴
 SELECT DISTINCT JOB_CODE, DEPT_CODE FROM EMPLOYEE;
 -- SELECT DISTINCT JOB_CODE, DISTINCT DEPT_CODE FROM EMPLOYEE; // 오류
+
 
 --====================================================--
 /*
