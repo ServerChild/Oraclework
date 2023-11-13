@@ -557,3 +557,63 @@ FROM EMPLOYEE;
 */
 -- 전 사원의 총 급여액 조회
 SELECT SUM(SALARY) "총 급여액" FROM EMPLOYEE;
+
+-- 남자 사원의 총 급여액 조회
+SELECT SUM(SALARY) "총 급여액" FROM EMPLOYEE WHERE SUBSTR(EMP_NO,8, 1) IN('1', '3') ;
+
+-- 부서코드가 'D5'인 사원의 총 급여액 조회
+SELECT SUM(SALARY) "부서 D5 총 급여액" FROM EMPLOYEE WHERE DEPT_CODE = 'D5';
+
+-- 부서코드가 'D5'인 사원의 급여의 총 합계(보너스 포함) 조회
+SELECT SUM(SALARY * NVL(BONUS, 0) + SALARY) "부서 D5 급여 총 합계" FROM EMPLOYEE WHERE DEPT_CODE = 'D5';
+
+-- 전 사원의 총 급여액 조회
+SELECT TO_CHAR(SUM(SALARY), 'L999,999,999') "총 급여액" FROM EMPLOYEE;
+
+
+--===========================================================================--
+/*
+    - AVG(숫자타입컬럼) : 해당 컬럼값들의 평균을 반환
+*/
+-- 전 사원의 평균 급여액 조회(원 단위로 출력)
+SELECT TO_CHAR(AVG(SALARY), 'L999,999,999') "평균 급여액" FROM EMPLOYEE;
+
+-- 반올림 출력
+SELECT ROUND(AVG(SALARY)) "평균 급여액" FROM EMPLOYEE;
+SELECT ROUND(AVG(SALARY), 2) "평균 급여액" FROM EMPLOYEE;
+
+
+--===========================================================================--
+/*
+    - MIN(모든타입컬럼) : 해당 컬럼값들 중에 가장 작은 값 반환
+    - MAX(모든타입컬럼) : 해당 컬럼값들 중에 가장 큰 값 반환
+*/
+-- 단일행 함수와 그룹 함수는 함께 사용할 수 없음
+-- 이름에서 제일 낮은 값(사전순), 급여 중 가장 적게 받는 값, 입사일 중에 가장 먼저 입사한 날짜
+SELECT MIN(EMP_NAME), MIN(SALARY), MIN(HIRE_DATE) FROM EMPLOYEE;
+
+-- 이름에서 제일 큰 값(사전순), 급여 중 가장 많이 받는 값, 입사일 중에 가장 나중에 입사한 날짜
+SELECT MAX(EMP_NAME), MAX(SALARY), MAX(HIRE_DATE) FROM EMPLOYEE;
+
+
+--===========================================================================--
+/*
+    - COUNT(* || 컬럼 || DISTINCT 컬럼) : 행의 개수 반환
+        -> COUNT(*) : 조회된 결과의 모든 행 개수 반환
+        -> COUNT(컬럼) : 제시한 컬럼에서 NULL값을 제외한 행의 개수 반환
+        -> COUNT(DISTINCT 컬럼) : 해당 컬럼값에서 중복을 제거한 후의 행의 개수 반환
+*/
+-- 전체 사원 수 조회
+SELECT COUNT(*) FROM EMPLOYEE;
+
+-- 여자 사원 수 조회
+SELECT COUNT(*) FROM EMPLOYEE WHERE SUBSTR(EMP_NO, 8, 1) IN('2', '4');
+
+-- 보너스를 받는 사원 수 조회
+SELECT COUNT(BONUS) FROM EMPLOYEE;
+
+-- 부서배치를 받은 사원의 수 조회
+SELECT COUNT(DEPT_CODE) FROM EMPLOYEE ;
+
+-- 현재 사원들이 총 몇개의 부서에 배치되었는지 조회
+SELECT COUNT(DISTINCT DEPT_CODE) FROM EMPLOYEE;
