@@ -1,8 +1,7 @@
 -- EMPLOYEE테이블에서 사원명과 직원의 주민번호를 이용하여 생년, 생월, 생일 조회
-SELECT EMP_NAME, EMP_NO, SUBSTR(EMP_NO, 1, 2) 생년, SUBSTR(EMP_NO, 3, 2) 생월, SUBSTR(EMP_NO, 5, 2) 생일 FROM EMPLOYEE;
+SELECT EMP_NAME, EMP_NO, SUBSTR(EMP_NO, 1, 2) 년, SUBSTR(EMP_NO, 3, 2) 월, SUBSTR(EMP_NO, 5, 2) 일 FROM EMPLOYEE;
 
--- EMPLOYEE테이블에서 사원명, 주민번호 조회
---	(단, 주민번호는 생년월일만 보이게 하고, '-'다음 값은 '*'로 바꾸기)
+-- EMPLOYEE테이블에서 사원명, 주민번호 조회(단, 주민번호는 생년월일만 보이게 하고, '-'다음 값은 '*'로 바꾸기)
 SELECT EMP_NAME, RPAD(SUBSTR(EMP_NO,1,7),14,'*') FROM EMPLOYEE;
 
 -- EMPLOYEE테이블에서 사원명, 입사일-오늘, 오늘-입사일 조회

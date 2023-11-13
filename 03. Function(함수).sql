@@ -88,6 +88,7 @@ SELECT EMP_NAME, EMAIL, SUBSTR(EMAIL,1, INSTR(EMAIL,'@')-1) 아이디 FROM EMPLO
     - LPAD / RPAD : 문자열을 조회할 때 통일감있게 조회하고자 할 때(CHARACTER: 반환형)
         -> LPAD / RPAD('문자열', 최종적으로 반환할 문자의 길이, [덧붙이고자하는 문자])
         -> 문자열에 덧붙이고자하는 문자를 왼쪽 혹은 오른쪽에 덧붙여서 최종 길이만큼의 문자열 반환
+        -> 덧붙이고자 하는 문자가 없으면 왼쪽/오른쪽으로 공백을 채움
 */
 -- EMAIL을 20길이로 오른쪽정렬로 출력(왼쪽으로 공백으로 채워서 출력)
 SELECT EMP_NAME, LPAD(EMAIL, 20) FROM EMPLOYEE;
@@ -111,11 +112,13 @@ SELECT EMP_ID, EMP_NAME, SUBSTR(EMP_NO,1,8) || '******' FROM EMPLOYEE;
         -> LTRIM / RTRIM('문자열', [제거하고자하는 문자열])
         -> TRIM( [LEADING | TRAILING | BOTH]제거하고자하는 문자열 FROM '문자열')
 */
-SELECT LTRIM('     A I   E     ') || 'AAA' FROM DUAL;        -- 제거하고자하는 문자열 생략시 기본값 공백
+-- LTRIM : 왼쪽부터 해당 문자열 제거(제거하고자하는 문자열 생략시 기본값으로 공백 제거)
+SELECT LTRIM('     A I   E     ') || 'AAA' FROM DUAL;
 SELECT LTRIM('JAVAJAVASCRIPTSPRING', 'JAVA') FROM DUAL;
 SELECT LTRIM('BCABACBDFGIABC','ABC') FROM DUAL;
 SELECT LTRIM('738473KLIK28373','0123456789') FROM DUAL;
 
+-- RTRIM : 오른쪽부터 해당 문자열 제거(제거하고자하는 문자열 생략시 기본값으로 공백 제거)
 SELECT RTRIM('BCABACBDFGIBACABAB','ABC') FROM DUAL;
 SELECT RTRIM('738473KLIK28373','0123456789') FROM DUAL;
 
@@ -125,9 +128,11 @@ SELECT TRIM('A' FROM 'AAABDKD342AAAA') FROM DUAL;
 
 -- LEADING : 앞의 문자 제거
 SELECT TRIM(LEADING 'A' FROM 'AAAAKDJDIAAAA') FROM DUAL;
+
 -- TRAILING : 뒤의 문자 제거
 SELECT TRIM(TRAILING 'A' FROM 'AAAAKDJDIAAAA') FROM DUAL;
--- BOTH : 앞과 뒤의 문자 제거 => 기본값:생략가능
+
+-- BOTH : 앞과 뒤의 문자 제거 => 기본값(생략가능)
 SELECT TRIM(BOTH 'A' FROM 'AAAAKDJDIAAAA') FROM DUAL;
 
 
@@ -148,11 +153,12 @@ SELECT INITCAP('java javascript oracle') FROM DUAL;
     - CONCAT : 문자열 두개를 하나로 합친 결과 반환
     - 표현법 : CONCAT('문자열', '문자열')
 */
-SELECT CONCAT('oracle','(오라클)') from dual;
-SELECT 'oracle' || '(오라클)' from dual;
+SELECT CONCAT('oracle','(오라클)') FROM DUAL;
+SELECT 'oracle' || '(오라클)' FROM DUAL;
 
--- SELECT CONCAT('oracle','(오라클)','02-313-0470') from dual;    인수는 2개만 가능
-SELECT 'oracle' || '(오라클)' || ' 02-313-0470' from dual;
+-- SELECT CONCAT('oracle','(오라클)','02-313-0470') FROM DUAL; -> 인수는 2개만 가능
+-- OR은 갯수 상관없음
+SELECT 'oracle' || '(오라클)' || ' 02-313-0470' FROM DUAL;
 
 
 --===========================================================================--
@@ -192,9 +198,9 @@ SELECT MOD(10.9, 2) FROM DUAL;      -- 잘 사용하지 않음
 */
 SELECT ROUND(1234.56) FROM DUAL;    -- 위치 생략시 0
 SELECT ROUND(12.34) FROM DUAL;
-SELECT ROUND(1234.5678, 2) FROM DUAL;
+SELECT ROUND(1234.5678, 2) FROM DUAL; -- 소수점 이하 자릿수(양수) 지정
 SELECT ROUND(1234.56, 4) FROM DUAL;
-SELECT ROUND(1234.56, -2) FROM DUAL;
+SELECT ROUND(1234.56, -2) FROM DUAL; -- 정수 자릿수(음수) 지정
 
 
 --===========================================================================--
@@ -241,10 +247,11 @@ SELECT SYSDATE FROM DUAL;
 --===========================================================================--
 /*
     - MONTHS_BETWEEN(DATE1, DATE2) : 두 날짜 사이의 개월 수 반환
+    -- 날짜를 '-' 연산 해주면 일자로 반환됨
 */
-SELECT EMP_NAME, HIRE_DATE, SYSDATE-HIRE_DATE 근무일수 FROM EMPLOYEE;
+SELECT EMP_NAME, HIRE_DATE, SYSDATE - HIRE_DATE 근무일수 FROM EMPLOYEE;
 
-SELECT EMP_NAME, HIRE_DATE, CEIL(SYSDATE-HIRE_DATE) 근무일수 FROM EMPLOYEE;
+SELECT EMP_NAME, HIRE_DATE, CEIL(SYSDATE - HIRE_DATE) 근무일수 FROM EMPLOYEE;
 
 SELECT EMP_NAME, HIRE_DATE, MONTHS_BETWEEN(SYSDATE, HIRE_DATE) 근무개월수 FROM EMPLOYEE;
 
@@ -257,7 +264,7 @@ SELECT EMP_NAME, HIRE_DATE, CONCAT(CEIL(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)), '�
 
 --===========================================================================--
 /*
-    - ADD_MONTHS(DATE, NUMBER) : 특정날짜에 해당 숫자만큼의 개월수를 더해 그 날짜 반환
+    - ADD_MONTHS(DATE, NUMBER) : 특정날짜에 해당 숫자만큼의 개월 수를 더해 그 날짜 반환
 */
 SELECT ADD_MONTHS(SYSDATE, 1) FROM DUAL;
 
@@ -272,7 +279,7 @@ SELECT EMP_NAME, HIRE_DATE, ADD_MONTHS(HIRE_DATE, 6) "정직원된 날짜" FROM 
 SELECT SYSDATE, NEXT_DAY(SYSDATE, '월요일') FROM DUAL;
 SELECT SYSDATE, NEXT_DAY(SYSDATE, '월') FROM DUAL;
 
--- 1:일요일
+-- 1(일요일) ~ 7(토요일)
 SELECT SYSDATE, NEXT_DAY(SYSDATE, 2) FROM DUAL;
 
 -- SELECT SYSDATE, NEXT_DAY(SYSDATE, 'MONDAY') FROM DUAL;  -- 에러 현재언어가 KOREA이기 때문
@@ -299,13 +306,13 @@ SELECT EMP_NAME, HIRE_DATE, LAST_DAY(HIRE_DATE), LAST_DAY(HIRE_DATE)-HIRE_DATE+1
 
 --===========================================================================--
 /*
-    - EXTRACT : 특정 날짜로 부터 년|월|일 값을 추출하여 반환하는 함수(NUMBER: 반환형)
+    - EXTRACT : 특정 날짜로 부터 년|월|일 값을 추출하여 반환하는 함수(반환형 : NUMBER)
     - 표현법
         -> EXTRACT(YEAR FROM DATE) : 년도만 추출
         -> EXTRACT(MONTH FROM DATE) : 월만 추출
         -> EXTRACT(DAY FROM DATE) : 일만 추출
 */
--- 사워명, 입사년도, 입사월, 입사일 조회
+-- 사원명, 입사년도, 입사월, 입사일 조회
 SELECT EMP_NAME,
               EXTRACT(YEAR FROM HIRE_DATE) 입사년도,
               EXTRACT(MONTH FROM HIRE_DATE) 입사월,
@@ -328,27 +335,28 @@ ORDER BY 입사년도, 입사월, 입사일;
 /*
     - 9 : 해당 자리의 숫자를 의미
         -> 값이 없을 경우 소수점 이상은 공백, 소수점 이하는 0으로 표시
+        
     - 0 : 해당 자리의 숫자를 의미
         ->  값이 없을 경우 0표시, 숫자의 길이를 고정적으로 표시할 때 주로 사용
+        
     - FM : 해당 자리에 값이 없을 경우 자리차지하지 않음 (9,0 넣는것은 같음)       
 */
 SELECT TO_CHAR(1234) FROM DUAL;
-SELECT TO_CHAR(1234, '999999')  FROM DUAL;  -- 6자리공간 차지, 왼쪽정렬, 빈칸공백
-SELECT TO_CHAR(1234, '000000')  FROM DUAL;  -- 6자리공간 차지, 왼쪽정렬, 빈칸은 0으로 채움
+SELECT TO_CHAR(1234, '999999')  FROM DUAL;  -- 6자리공간 차지, 왼쪽정렬, 빈칸을 공백으로 채움
+SELECT TO_CHAR(1234, '000000')  FROM DUAL;  -- 6자리공간 차지, 왼쪽정렬, 빈칸을 0으로 채움
 
 SELECT TO_CHAR(1234, 'L99999') 자리 FROM DUAL;  -- L(LOCAL) 현재 설정된 나라의 화폐단위(빈칸공백)
 
 SELECT TO_CHAR(123412, 'L999,999,999') 자리 FROM DUAL;
 
 -- 사번, 이름, 급여(\1,111,111), 연봉(\123,234,234) 조회
-SELECT EMP_ID, EMP_NAME, TO_CHAR(SALARY, 'L99,999,999') 급여, TO_CHAR(SALARY*12, 'L999,999,999') 연봉
-FROM EMPLOYEE;
+SELECT EMP_ID, EMP_NAME, TO_CHAR(SALARY, 'L99,999,999') 급여, TO_CHAR(SALARY*12, 'L999,999,999') 연봉 FROM EMPLOYEE;
 
 -- FM
 SELECT TO_CHAR(123.456, 'FM99990.999'),
               TO_CHAR(1234.56, 'FM9990.99'),
               TO_CHAR(0.1000, 'FM9990.999'),
-              TO_CHAR(0.1000, 'FM9990.00'),
+              TO_CHAR(0.1000, 'FM9990.00'), -- 소수점 이하자리 출력시 사용
               TO_CHAR(0.1000, 'FM9999.999')
     FROM DUAL;
     
@@ -469,7 +477,7 @@ SELECT EMP_NAME, NVL(DEPT_CODE, '부서 없음') FROM EMPLOYEE;
         -> 컬럼값이 존재할 경우 반환값1
         -> 컬럼값이 NULL일때 반환값2
 */
-
+-- 보너스를 받는 사람은 50%의 성과급을, 보너스를 받지 않는 사람은 10%의 성과급
 SELECT EMP_NAME, SALARY, BONUS, SALARY*NVL2(BONUS, 0.5, 0.1) 성과급 FROM EMPLOYEE;
 
 SELECT EMP_NAME, NVL2(DEPT_CODE, '부서 있음', '부서 없음') 부서여부 FROM EMPLOYEE;
@@ -501,8 +509,7 @@ SELECT NULLIF('1234', '5678') FROM DUAL;
     }
 */
 -- 사원명, 성별
-SELECT EMP_NAME, DECODE(SUBSTR(EMP_NO, 8, 1), '1','남자', '2','여자', '3','남자', '4','여자') 성별
-FROM EMPLOYEE;
+SELECT EMP_NAME, DECODE(SUBSTR(EMP_NO, 8, 1), '1','남자', '2','여자', '3','남자', '4','여자') 성별 FROM EMPLOYEE;
 
 -- 직원의 급여를 직급별로 인상해서 조회
 -- J7이면 급여의 10% 인상
@@ -513,8 +520,8 @@ FROM EMPLOYEE;
 -- 사원명, 직급코드, 기존급여, 인상된 급여
 SELECT EMP_NAME, JOB_CODE, SALARY 기존급여,
               DECODE(JOB_CODE, 'J7', SALARY * 1.1,
-                                                'J6', SALARY * 1.15,
-                                                'J5', SALARY * 1.2,
-                                                SALARY * 1.05) "인상된 급여"
+                               'J6', SALARY * 1.15,
+                               'J5', SALARY * 1.2,
+                                     SALARY * 1.05) "인상된 급여"
 FROM EMPLOYEE;
 --===========================================================================--

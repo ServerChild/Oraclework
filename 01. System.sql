@@ -50,3 +50,9 @@ ALTER USER user1 QUOTA 30M ON USERS;
 -- 사용자 삭제(테이블 있는 상태) : DROP USER 사용자명 CASCADE;
 DROP USER c##user2;
 DROP USER user3;
+
+-- 숙제용 사용자 생성
+ALTER SESSION set "_oracle_script" = true;
+create user workbook identified by workbook;
+grant RESOURCE, CONNECT to workbook;
+alter user workbook default TABLESPACE users quota UNLIMITED on users;
