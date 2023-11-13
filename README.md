@@ -11,4 +11,18 @@
    -  연산자 : 논리 연산자, BETWEEN AND, LIKE, IS NULL / IS NOT NULL, IN / NOT IN
    -  연산자 우선순위
    -  ORDER BY절
-   -  함수 : 단일행 함수(문자처리 함수)
+   -  문자 처리 함수 : LENGTH / LENGIHB, INSTR, SUBSTR
+
+#### 2023.11.10
+   -  문자 처리 함수 : LPAD / RPAD, LTRIM / RTRIM / TRIM, LOWER / UPPER / INITCAP, CONCAT, REPLACE
+   -  숫자 처리 함수 : ABS, MOD, ROUND, CEIL, FLOOR, TRUNC
+   -  날짜 처리 함수 : SYSDATE, MONTHS_BETWEEN, ADD_MONTHS, NEXT_DAY, LAST_DAY, EXTRACT
+   -  형변환 함수 : TO_CHAR, TO_DATE, TO_NUMBER
+   -   NULL 처리 함수 : NVL, NVL2, NULLIF
+   -   선택 함수 : DECODE
+
+
+
+#### 2023.11.13
+   - 선택 함수 : CASE WHEN THEN ... END문
+   - 그룹 함수 : SUM, AVG, MIN / MAX, COUNT
