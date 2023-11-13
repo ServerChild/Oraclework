@@ -51,7 +51,8 @@ ALTER USER user1 QUOTA 30M ON USERS;
 DROP USER c##user2;
 DROP USER user3;
 
--- 숙제용 사용자 생성
+
+-- 숙제용 사용자(workbook) 생성
 ALTER SESSION set "_oracle_script" = true;
 create user workbook identified by workbook;
 grant RESOURCE, CONNECT to workbook;
