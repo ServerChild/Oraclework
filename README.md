@@ -26,3 +26,7 @@
 #### 2023.11.13
    - 선택 함수 : CASE WHEN THEN ... END문
    - 그룹 함수 : SUM, AVG, MIN / MAX, COUNT
+   - GROUP BY절, HAVING절
+   - SELECT문 순서
+   - 집계함수 : ROLLUP, CUBE
+   - 집합연산자 : UNION, INTERSECT, UNION ALL, MINUS
