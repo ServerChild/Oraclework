@@ -21,8 +21,6 @@
    -   NULL 처리 함수 : NVL, NVL2, NULLIF
    -   선택 함수 : DECODE
 
-
-
 #### 2023.11.13
    - 선택 함수 : CASE WHEN THEN ... END문
    - 그룹 함수 : SUM, AVG, MIN / MAX, COUNT
@@ -30,3 +28,7 @@
    - SELECT문 순서
    - 집계함수 : ROLLUP, CUBE
    - 집합연산자 : UNION, INTERSECT, UNION ALL, MINUS
+
+#### 2023.11.14
+   - JOIN : 등가 조인(EQUAL JOIN) / 내부조인(INNER JOIN), 포괄조인 / 외부조인(OUTER JOIN), 비등가 조인(NON EQUL JOIN), 셀프조인(SELF JOIN), 다중 JOIN
+   - 서브쿼리(SubQuery)
