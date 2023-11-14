@@ -31,4 +31,4 @@
 
 #### 2023.11.14
    - JOIN : 등가 조인(EQUAL JOIN) / 내부조인(INNER JOIN), 포괄조인 / 외부조인(OUTER JOIN), 비등가 조인(NON EQUL JOIN), 셀프조인(SELF JOIN), 다중 JOIN
-   - 서브쿼리(SubQuery)
+   - 서브쿼리(SubQuery) : 단일행 서브쿼리, 다중행 서브쿼리
