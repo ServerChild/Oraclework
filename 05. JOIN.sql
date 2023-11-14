@@ -24,11 +24,6 @@
         ---------------------------------------------------------------------------
           카테시안 곱(CARTESIAN PRODUCT)             교차 조인(CROSS JOIN)
 */
--- 전체 사원들의 사번, 사원명, 부서코드, 부서명 조회
-SELECT EMP_ID, EMP_NAME, DEPT_CODE FROM EMPLOYEE;
-
-SELECT DEPT_ID, DEPT_TITLE FROM DEPARTMENT;
-
 
 --===========================================================================--
 /*
@@ -178,6 +173,7 @@ JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL);
 -- 사수가 있는 사원의 사번, 사원명, 부서코드 => EMPLOYEE
 --            사수의 사번, 사원명, 부서코드 => EMPLOYEE
 --== 오라클 구문 ==--
+-- 테이블 별칭을 통해 구분해줌
 SELECT E.EMP_ID, E.EMP_NAME, E.DEPT_CODE, M.EMP_ID, M.EMP_NAME, M.DEPT_CODE 
 FROM EMPLOYEE E, EMPLOYEE M WHERE E.MANAGER_ID = M.EMP_ID;
 
