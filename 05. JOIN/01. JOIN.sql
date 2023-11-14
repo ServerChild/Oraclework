@@ -32,7 +32,7 @@ SELECT DEPT_ID, DEPT_TITLE FROM DEPARTMENT;
 
 --===========================================================================--
 /*
-    [ 등가 조인(EQUAL JOIN) / 내부조인(INNER JOIN) ]
+    [ 등가조인(EQUAL JOIN) / 내부조인(INNER JOIN) ]
         - 연결시키고자 하는 컬럼 값이 "일치하는 행"들만 조인되어 조회
             -> 일치하는 값이 없으면 조회에서 제외
 */
@@ -106,3 +106,52 @@ WHERE E.JOB_CODE = J.JOB_CODE AND JOB_NAME = '대리';
 SELECT EMP_ID, EMP_NAME, JOB_NAME, SALARY FROM EMPLOYEE
 JOIN JOB USING (JOB_CODE) WHERE JOB_NAME = '대리';
 
+
+--===========================================================================--
+/*
+    [ 포괄조인 / 외부조인(OUTER JOIN) ]
+        - 두 테이블간의 JOIN시 일치하지 않는 행도 포함해서 조회
+            -> 단, 반드시 LEFT/RIGHT를 지정해야됨(기준이 되는 테이블 지정)
+*/
+-- 사원명, 부서명, 급여, 연봉 조회
+-- 내부조인 시에는 NULL값을 가진 컬럼(부서배치가 안된 사원 2명)이 조회가 안됨
+SELECT EMP_NAME, DEPT_TITLE, SALARY, SALARY * 12 FROM EMPLOYEE JOIN DEPARTMENT ON DEPT_CODE = DEPT_ID;
+
+
+-- LEFT [OUTER] JOIN : 두 테이블 중 왼쪽에 기술된 테이블을 기준으로 JOIN
+--== ANSI 구문 ==--
+-- 형식 : 테이블명1(기준) LEFT JOIN 테이블명2 ON 조건
+-- 부서배치가 안된 사원도 조회
+SELECT EMP_NAME, DEPT_TITLE, SALARY, SALARY * 12 
+FROM EMPLOYEE LEFT JOIN DEPARTMENT ON DEPT_CODE = DEPT_ID;
+
+--== 오라클 구문 ==--
+-- 기준이 아닌 테이블 컬럼명 뒤에 (+) 기호를 붙임
+SELECT EMP_NAME, DEPT_TITLE, SALARY, SALARY * 12 FROM EMPLOYEE, DEPARTMENT
+WHERE DEPT_CODE = DEPT_ID(+);
+
+
+-- RIGHT [OUTER] JOIN : 두 테이블 중 오른쪽에 기술된 테이블을 기준으로 JOIN
+--== ANSI 구문 ==--
+-- 형식 : 테이블명1 RIGHT JOIN 테이블명2(기준) ON 조건
+SELECT EMP_NAME, DEPT_TITLE, SALARY, SALARY * 12 
+FROM EMPLOYEE RIGHT JOIN DEPARTMENT ON DEPT_CODE = DEPT_ID;
+
+--== 오라클 구문 ==--
+-- 기준이 아닌 테이블 컬럼명 뒤에 (+) 기호를 붙임
+SELECT EMP_NAME, DEPT_TITLE, SALARY, SALARY * 12 FROM EMPLOYEE, DEPARTMENT
+WHERE DEPT_CODE(+) = DEPT_ID;
+
+
+-- FULL [OUTER] JOIN : 두 테이블에 기술된 모든 행을 조회(단, 오라클 전용 구문 없음)
+--== ANSI 구문 ==--
+-- 형식 : 테이블명1 FULL JOIN 테이블명2 ON 조건 -> 모든 행 JOIN
+SELECT EMP_NAME, DEPT_TITLE, SALARY, SALARY * 12 
+FROM EMPLOYEE FULL JOIN DEPARTMENT ON DEPT_CODE = DEPT_ID;
+
+
+--===========================================================================--
+/*
+    [ 비등가 조인(NON EQUL JOIN) / JOIN ON ]
+        - 
+*/
