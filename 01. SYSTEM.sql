@@ -22,7 +22,7 @@ CREATE USER user3 IDENTIFIED BY user3;
 
 
 -- 사용자 이름에 c## 붙이는 것을 생략하는 방법
-ALTER SESSION set "_oracle_script" = true;
+ALTER SESSION SET "_oracle_script" = true;
 
 
 -- 사용자 이름은 대소문자를 가리지 않음
@@ -53,7 +53,14 @@ DROP USER user3;
 
 
 -- 숙제용 사용자(workbook) 생성
-ALTER SESSION set "_oracle_script" = true;
-create user workbook identified by workbook;
-grant RESOURCE, CONNECT to workbook;
-alter user workbook default TABLESPACE users quota UNLIMITED on users;
+ALTER SESSION SET "_oracle_script" = true;
+CREATE USER workbook IDENTIFIED BY workbook;
+GRANT RESOURCE, CONNECT TO workbook;
+ALTER USER workbook DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
+
+
+-- DDL 사용자(ddl) 생성
+ALTER SESSION SET "_oracle_script" = true;
+CREATE USER ddl IDENTIFIED BY ddl;
+GRANT RESOURCE, CONNECT TO ddl;
+ALTER USER ddl DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
