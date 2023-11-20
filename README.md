@@ -45,4 +45,6 @@
 
 #### 2023.11.20
    - TCL(TRANSACTION CONTROL LANGUAGE)
-   - VIEW(뷰)
+   - 뷰(VIEW)
+   - 시퀀스(SEQUENCE)
+   - PL/SQL
