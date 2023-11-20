@@ -37,3 +37,12 @@
    - 서브쿼리(SubQuery) : 다중열 서브쿼리, 다중행 다중열 서브쿼리, 인라인 뷰(INLINE VIEW)
    - 순위 매기는 함수(WINDOW FUNCTION) : RANK(), DENSE_RANK()
    - 데이터 정의어(DDL) : CREATE
+
+#### 2023.11.16 ~ 17
+   - DML(INSERT,UPDATE,DELETE)
+   - DDL(ALTER,DROP)
+   - DCL(GRANT)
+
+#### 2023.11.20
+   - TCL(TRANSACTION CONTROL LANGUAGE)
+   - VIEW(뷰)
