@@ -424,7 +424,62 @@ CREATE TABLE MEMBER2 (
     MEM_DATE DATE DEFAULT SYSDATE
 );
 
---------------------------------------------------------------------------------
+
+--===========================================================================--
+/*
+     <SUBQUERY를 이용한 테이블 생성> : 테이블 복사하는 개념 // aie 계정
+        - 표현식 : CREATE TABLE 테이블명 
+                    AS 서버쿼리;
+*/
+-- EMPLOYEE테이블을 복제한 새로운 테이블 생성
+--  컬럼, 데이터값 등은 복사
+--  제약조건 같은 경우 NOT NULL만 복사됨
+--  DEFALUT, COMMENT는 복사안됨
+CREATE TABLE EMPLOYEE_COPY 
+         AS SELECT * FROM EMPLOYEE;
 
 
+REATE TABLE EMPLOYEE_COPY2
+         AS SELECT EMP_ID, EMP_NAME, SALARY, BONUS
+                 FROM EMPLOYEE;
+
+
+CREATE TABLE EMPLOYEE_COPY3
+         AS SELECT EMP_ID, EMP_NAME, SALARY, BONUS
+                 FROM EMPLOYEE
+              WHERE 1=0 ;  -- 테이블의 구조만 복사하고자 할 때 쓰이는 구문(데이터 값이 필요 없을 때)
+              
+                 
+-- 서브쿼리 SELECT절에 산술식 또는 함수식이 기술된 경우는 반드시 별칭 부여해야함
+ CREATE TABLE EMPLOYEE_COPY4
+         AS SELECT EMP_ID, EMP_NAME, SALARY, BONUS, SALARY*12  -- 오류 컬럼의 별칭을 반드시 줘야한다 
+                 FROM EMPLOYEE;               
+
+ 
+CREATE TABLE EMPLOYEE_COPY4
+         AS SELECT EMP_ID, EMP_NAME, SALARY, BONUS, SALARY*12 연봉
+                 FROM EMPLOYEE;
 --------------------------------------------------------------------------------
+/*
+    * 테이블을 다 생성한 후에 제약조건 추가
+       ALTER TABLE 테이블명 변경할내용;
+         - PRIMARY KEY : ALTER TABLE 테이블명 ADD PRIMARY KEY(컬럼명);
+         - FOREIGN KEY : ALTER TABLE 테이블명 ADD FOREIGN KEY(컬럼명) REFERENCES 참조할테이블명[(참조할컬럼명)];
+         - UNIQUE : ALTER TABLE 테이블명 ADD UNIQUE(컬럼명);
+         - CHECK : ALTER TABLE 테이블명 ADD CHECK(컬럼에 대한 조건식);
+         - NOT NULL : ALTER TABLE 테이블명 MODIFY 컬럼명 NOT NULL;
+*/ 
+-- EMPLOYEE_COPY 테이블에 PRIMARY KEY 제약조건 추가
+ALTER TABLE EMPLOYEE_COPY ADD PRIMARY KEY(EMP_ID);
+
+
+-- EMPLOYEE 테이블에 DEPT_CODE에 외래키제약조건 추가(부모테이블 DEPARTMENT)
+
+
+-- EMPLOYEE 테이블에 JOB_CODE에 외래키제약조건 추가(JOB 테이블)
+
+
+-- DEPARTMENT테이블에 LOCATION_ID에 외래키제약조건 추가(LOCATION테이블)
+
+
+-- EMPLOYEE_COPY 테이블에 MEM_ID와 MEM_NO의 컬럼에 COMMENT 넣어주기
