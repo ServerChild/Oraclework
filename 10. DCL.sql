@@ -4,7 +4,7 @@
             > 시스템 권한 : DB에 접근하는 권한, 객체들을 생성할 수 있는 권한
             > 객체접근 권한 : 특정 객체들을 조작할 수 있는 권한
 */
---------------------------------------------------------------------------------
+--===========================================================================--
 /*
     - 시스템 권한의 종류
        - CREATE SESSION : 접속할 수 있는 권한
@@ -61,27 +61,3 @@ GRANT SELECT ON AIE.EMPLOYEE TO SAMPLE;
 -- SMAPLE계정에게 AIE계정의 DEPARTMENT테이블에 INSERT할 수 있는 권한부여
 GRANT INSERT ON AIE.DEPARTMENT TO SAMPLE;
 GRANT SELECT ON AIE.DEPARTMENT TO SAMPLE;
-
-
---------------------------------------------------------------------------------
---== 비교 ==--
--- 권한부여 전에는 실행하면 오류. 권한부여 후에는 생성 가능
-CREATE TABLE TEST (
-    ID VARCHAR2(30),
-    NAME VARCHAR2(20)
-);
-
-
--- 권한 부여 전과 후 비교
-INSERT INTO TEST VALUES('user01', '홍길동');
-
-
--- 권한 부여 전과 후 비교
-SELECT * FROM AIE.EMPLOYEE;
-
--- 권한 부여 후
-INSERT INTO AIE.DEPARTMENT VALUES('D0', '관리부', 'L2');
-
-SELECT * FROM AIE.DEPARTMENT;
-
-COMMIT;
