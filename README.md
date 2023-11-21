@@ -48,3 +48,8 @@
    - 뷰(VIEW)
    - 시퀀스(SEQUENCE)
    - PL/SQL
+
+#### 2023.11.21
+   - PL/SQL
+   - DCL : REVOKE, ROLE
+   - TRIGGER(트리거)
