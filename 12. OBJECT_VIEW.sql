@@ -34,6 +34,7 @@ CREATE VIEW VM_EMPLOYEE
 -- 뷰는 논리적인 가상테이블(실질적으로는 데이터를 저장하고 있지 않음)
 SELECT * FROM VM_EMPLOYEE;
 
+-- 생성한 뷰(VIEW)에서 주어진 조건에 부합하는 결과 조회
 SELECT * FROM VM_EMPLOYEE WHERE NATIONAL_NAME = '한국';
 
 SELECT * FROM VM_EMPLOYEE WHERE NATIONAL_NAME = '러시아';
@@ -75,6 +76,7 @@ SELECT * FROM VM_EMP_JOB;
 
 
 -- 별칭 지정하는 방법 2(뷰명 옆에 각 컬럼에 대한 별칭 나열하여 부여)
+-- 뷰명 옆에 별칭을 지정할 시 컬럼 순서대로 다 부여해줘야 함, 개별 지정할때는 컬럼 옆에 별칭 지정
 CREATE OR REPLACE VIEW VM_EMP_JOB(사번, 사원명, 직급명, 성별, 근무년수)
     AS SELECT EMP_ID, EMP_NAME, JOB_NAME
             , DECODE(SUBSTR(EMP_NO, 8, 1), '1', '남', '2', '여')
@@ -118,7 +120,7 @@ DELETE FROM VM_JOB WHERE JOB_CODE = 'J8';
         - 뷰에 정의되어있지 않은 컬럼을 조작하려는 경우
         - 뷰에 정의되어있는 컬럼 중에 원래 테이블 상에 NOT NULL 제약조건이 지정되어있는 경우
         - 산술연산식이나 함수식으로 정의되어 있는 경우
-        - 그룹함수나 GROUP BY절이 포함되어 있는 경우
+        - 그룹함수나 GROUP BY절이 포함되어 있는 경우(= 데이터가 여러개)
         - DISTINCT 구문이 포함된 경우
         - JOIN을 이용하여 여러 테이블을 연결시켜놓은 경우
 */

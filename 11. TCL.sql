@@ -20,6 +20,7 @@
         -> SAVEPOINT 포인트명 : 현재 이 시점에 해당 포인트명으로 임시저장점을 정의해두는 것
             + ROLLBACK 진행시 전체 변경사항들을 다 삭제하는것이 아니라 일부만 롤백 가능
 */
+-- SELECT는 트랜잭션에 남아있지 않음
 SELECT * FROM EMP_01;
 
 -- 사번이 300인 사원 삭제
@@ -75,7 +76,7 @@ COMMIT;
 /*
     - 자동 COMMIT이 되는 경우
         -> 정상 종료
-        -> DCL과 DDL 명령문이 수행된 경우
+        -> DCL(GRANT, REVOKE)과 DDL(CREATE, ALTER, DROP) 명령문이 수행된 경우
         
     - 자동 ROLLBACK이 되는 경우
         -> 비정상 종료
