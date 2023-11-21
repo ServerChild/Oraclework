@@ -40,7 +40,7 @@ GRANT CREATE TABLE TO SAMPLE;
 ALTER USER SAMPLE QUOTA 2M ON USERS;
 
 
-----------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 /*
     - 객체 접근 권한 : 특정 객체에 접근하여 조작할 수 있는 권한
         
@@ -61,3 +61,23 @@ GRANT SELECT ON AIE.EMPLOYEE TO SAMPLE;
 -- SMAPLE계정에게 AIE계정의 DEPARTMENT테이블에 INSERT할 수 있는 권한부여
 GRANT INSERT ON AIE.DEPARTMENT TO SAMPLE;
 GRANT SELECT ON AIE.DEPARTMENT TO SAMPLE;
+
+
+--== 권한 회수 ==--
+-- 표현 : REVOKE 회수할권한 FROM 계정명;
+-- SELECT 권한 회수
+REVOKE SELECT ON AIE.EMPLOYEE FROM SAMPLE;
+REVOKE SELECT ON AIE.DEPARTMENT FROM SAMPLE;
+
+-- INSERT 권한 회수
+REVOKE INSERT ON AIE.DEPARTMENT FROM SAMPLE;
+
+
+--------------------------------------------------------------------------------
+/*
+    - ROLE(룰) : 특정 권한들을 하나의 집합으로 모아놓은 것
+        -> CONNECT : CREATE, SESSION(생성, 접속)
+        -> RESOURCE : CREATE 객체, INSERT, UPDATE ....
+        -> DBA : 시스템 및 객체 관리에 대한 모든 권한을 갖고 있는 룰
+*/
+-- 예시 : GRANT "ROLE" TO 계정명;
