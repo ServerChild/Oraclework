@@ -53,3 +53,6 @@
    - PL/SQL
    - DCL : REVOKE, ROLE
    - TRIGGER(트리거)
+
+#### 2023.11.22
+   - ERDcloud
